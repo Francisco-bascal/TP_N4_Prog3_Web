@@ -1,6 +1,6 @@
-﻿using APP_PRUEBA_1.Models;
+﻿using TP_N4_Prog3_Web.Models;
 
-namespace APP_PRUEBA_1.Repositorios
+namespace TP_N4_Prog3_Web.Repositorios
 {
     public interface ICursoRepository
     {

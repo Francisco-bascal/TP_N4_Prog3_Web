@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace APP_PRUEBA_1.Models;
+namespace TP_N4_Prog3_Web.Models;
 
 public partial class Departamento
 {

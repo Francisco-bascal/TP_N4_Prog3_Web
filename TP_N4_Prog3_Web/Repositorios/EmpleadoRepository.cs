@@ -1,8 +1,8 @@
-﻿using APP_PRUEBA_1.Models;
+﻿using TP_N4_Prog3_Web.Models;
 using Microsoft.EntityFrameworkCore;
 using TP_N4_Prog3_Web.DTOs;
 
-namespace APP_PRUEBA_1.Repositorios
+namespace TP_N4_Prog3_Web.Repositorios
 {
     //El repositorio solo debe ejecutar las acciones solicitadas, más no validar y manejar excepciones.
     //Esto significa que asume que las acciones que se le solicitan son válidas de realizar cuando se llaman desde el servicio.

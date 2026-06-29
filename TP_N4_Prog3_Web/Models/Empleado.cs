@@ -6,7 +6,7 @@ using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 using Microsoft.EntityFrameworkCore;
 
-namespace APP_PRUEBA_1.Models;
+namespace TP_N4_Prog3_Web.Models;
 
 [Index("Dni", Name = "UQ__Empleado__C035B8DDFA0A98A2", IsUnique = true)]
 public partial class Empleado

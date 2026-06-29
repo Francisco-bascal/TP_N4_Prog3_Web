@@ -1,8 +1,8 @@
 using System.Diagnostics;
-using APP_PRUEBA_1.Models;
+using TP_N4_Prog3_Web.Models;
 using Microsoft.AspNetCore.Mvc;
 
-namespace APP_PRUEBA_1.Controllers
+namespace TP_N4_Prog3_Web.Controllers
 {
     public class HomeController : Controller
     {

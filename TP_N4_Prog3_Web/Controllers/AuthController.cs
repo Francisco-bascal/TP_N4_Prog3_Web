@@ -1,11 +1,11 @@
-﻿using APP_PRUEBA_1.Servicios;
+﻿using TP_N4_Prog3_Web.Servicios;
 using Microsoft.AspNetCore.Authentication;
 using Microsoft.AspNetCore.Authentication.Cookies;
 using Microsoft.AspNetCore.Mvc;
 using System.Security.Claims;
 using TP_N4_Prog3_Web.DTOs;
 
-namespace APP_PRUEBA_1.Controllers
+namespace TP_N4_Prog3_Web.Controllers
 {
     public class AuthController : Controller
     {

@@ -1,7 +1,7 @@
-﻿using APP_PRUEBA_1.Models;
+﻿using TP_N4_Prog3_Web.Models;
 using Microsoft.EntityFrameworkCore;
 
-namespace APP_PRUEBA_1.Repositorios
+namespace TP_N4_Prog3_Web.Repositorios
 {
     public class DepartamentoRepository : IDepartamentoRepository
     {

@@ -1,4 +1,4 @@
-﻿namespace APP_PRUEBA_1.Servicios.Validation
+﻿namespace TP_N4_Prog3_Web.Servicios.Validation
 {
     public class Result<T>
     {

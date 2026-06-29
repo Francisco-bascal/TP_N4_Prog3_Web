@@ -1,6 +1,6 @@
-﻿using APP_PRUEBA_1.Models;
-using APP_PRUEBA_1.Servicios;
-using APP_PRUEBA_1.Servicios.Validation;
+﻿using TP_N4_Prog3_Web.Models;
+using TP_N4_Prog3_Web.Servicios;
+using TP_N4_Prog3_Web.Servicios.Validation;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Rendering;
@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore;
 using System.ComponentModel.DataAnnotations;
 using System.Threading.Tasks;
 
-namespace APP_PRUEBA_1.Controllers
+namespace TP_N4_Prog3_Web.Controllers
 {
     public class EmpleadosController : Controller
     {

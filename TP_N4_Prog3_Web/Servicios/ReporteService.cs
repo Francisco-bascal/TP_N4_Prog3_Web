@@ -1,10 +1,10 @@
-﻿using APP_PRUEBA_1.Repositorios;
-using APP_PRUEBA_1.Servicios.Validation;
-using APP_PRUEBA_1.Models;
+﻿using TP_N4_Prog3_Web.Repositorios;
+using TP_N4_Prog3_Web.Servicios.Validation;
+using TP_N4_Prog3_Web.Models;
 using TP_N4_Prog3_Web.DTOs;
 using TP_N4_Prog3_Web.ViewModels;
 
-namespace APP_PRUEBA_1.Servicios
+namespace TP_N4_Prog3_Web.Servicios
 {
     public class ReporteService : IReporteService
     {

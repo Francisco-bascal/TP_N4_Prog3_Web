@@ -1,7 +1,7 @@
-﻿using APP_PRUEBA_1.Models;
+﻿using TP_N4_Prog3_Web.Models;
 using System.ComponentModel.DataAnnotations;
 
-namespace APP_PRUEBA_1.Servicios.Validation
+namespace TP_N4_Prog3_Web.Servicios.Validation
 {
     //Para las validaciones de modelo se usa una combinación de Data Annotations con Result Pattern.
     //Dado que para propiedades del modelo se considera que Data Annot es la "fuente única de verdad” del modelo.
@@ -114,12 +114,12 @@ namespace APP_PRUEBA_1.Servicios.Validation
             return errores;
         }
 
+        //Funcion clave para juntar los errores de validación de las funciones que combinen result pattern puro con el validation service definido
         public static IEnumerable<string> AppendValidationErrores(List<string> erroresResultFuente, List<ValidationResult> erroresDataFuente) 
         {
             var erroresData = erroresDataFuente.Where(r => r.ErrorMessage != null).Select(r => r.ErrorMessage ?? "Error de validación").ToList(); //Extraemos los errores de data anotations
 
             erroresResultFuente.AddRange(erroresData);
-
             return erroresResultFuente;
         }
     }

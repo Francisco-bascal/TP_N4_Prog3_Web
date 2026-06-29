@@ -1,4 +1,4 @@
-namespace APP_PRUEBA_1.Models
+namespace TP_N4_Prog3_Web.Models
 {
     public class ErrorViewModel
     {
