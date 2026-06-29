@@ -1,0 +1,244 @@
+﻿@using TP_N4_Prog3_Web.ViewModels
+@model ReporteConFiltrosEmpleadoVM
+
+<div class="container mt-4">
+
+    <div class="card shadow-sm mb-4">
+        <div class="card-body">
+
+            <h3 class="mb-4 text-center">
+                Filtros de Reporte
+            </h3>
+
+            <form method="get"
+                  asp-controller="Reportes"
+                  asp-action="ReporteFiltroEspecializado">
+
+                <div class="row g-3">
+
+                    <!-- Búsqueda -->
+                    <div class="col-md-6">
+                        <label asp-for="Filtros.Busqueda"
+                               class="form-label">
+                            Nombre o Apellido
+                        </label>
+
+                        <input asp-for="Filtros.Busqueda"
+                               class="form-control"
+                               placeholder="Ingrese nombre o apellido" />
+                    </div>
+
+                    <!-- Departamento -->
+                    <div class="col-md-6">
+                        <label asp-for="Filtros.IdDepartamento"
+                               class="form-label">
+                            Departamento
+                        </label>
+
+                        <select asp-for="Filtros.IdDepartamento"
+                                class="form-select">
+
+                            <option value="">
+                                Todos los departamentos
+                            </option>
+
+                            @foreach (var departamento in Model.Departamentos)
+                            {
+                                <option value="@departamento.IdDepartamento">
+                                    @departamento.Nombre
+                                </option>
+                            }
+
+                        </select>
+                    </div>
+
+                    <!-- Estado -->
+                    <div class="col-md-4">
+                        <label asp-for="Filtros.Estado"
+                               class="form-label">
+                            Estado
+                        </label>
+
+                        <select asp-for="Filtros.Estado"
+                                class="form-select">
+
+                            <option value="">
+                                Todos
+                            </option>
+
+                            <option value="true">
+                                Activos
+                            </option>
+
+                            <option value="false">
+                                Inactivos
+                            </option>
+
+                        </select>
+                    </div>
+
+                    <!-- Hijos mínimo -->
+                    <div class="col-md-4">
+                        <label asp-for="Filtros.CantidadHijosMin"
+                               class="form-label">
+                            Hijos mínimos
+                        </label>
+
+                        <input asp-for="Filtros.CantidadHijosMin"
+                               type="number"
+                               min="0"
+                               class="form-control" />
+                    </div>
+
+                    <!-- Hijos máximo -->
+                    <div class="col-md-4">
+                        <label asp-for="Filtros.CantidadHijosMax"
+                               class="form-label">
+                            Hijos máximos
+                        </label>
+
+                        <input asp-for="Filtros.CantidadHijosMax"
+                               type="number"
+                               min="0"
+                               class="form-control" />
+                    </div>
+
+                    <!-- Fecha desde -->
+                    <div class="col-md-6">
+                        <label asp-for="Filtros.FechaIngresoDesde"
+                               class="form-label">
+                            Fecha ingreso desde
+                        </label>
+
+                        <input asp-for="Filtros.FechaIngresoDesde"
+                               type="date"
+                               class="form-control" />
+                    </div>
+
+                    <!-- Fecha hasta -->
+                    <div class="col-md-6">
+                        <label asp-for="Filtros.FechaIngresoHasta"
+                               class="form-label">
+                            Fecha ingreso hasta
+                        </label>
+
+                        <input asp-for="Filtros.FechaIngresoHasta"
+                               type="date"
+                               class="form-control" />
+                    </div>
+
+                </div>
+
+                <div class="mt-4 d-flex gap-2">
+
+                    <button type="submit"
+                            class="btn btn-primary">
+                        Buscar
+                    </button>
+
+                    <a asp-controller="Reportes"
+                       asp-action="ReporteFiltroEspecializado"
+                       class="btn btn-outline-secondary">
+                        Limpiar filtros
+                    </a>
+
+                </div>
+
+            </form>
+
+        </div>
+    </div>
+
+    <!-- RESULTADOS -->
+
+    <div class="card shadow-sm">
+
+        <div class="card-body">
+
+            <h3 class="mb-4 text-center">
+                Resultados
+            </h3>
+
+            @if (Model.Empleados.Any())
+            {
+                <div class="table-responsive">
+
+                    <table class="table table-hover table-bordered align-middle">
+
+                        <thead class="table-dark">
+                            <tr>
+                                <th>DNI</th>
+                                <th>Nombre</th>
+                                <th>Apellido</th>
+                                <th>Departamento</th>
+                                <th>Estado</th>
+                                <th>Hijos</th>
+                                <th>Fecha Ingreso</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+
+                            @foreach (var empleado in Model.Empleados)
+                            {
+                                <tr>
+
+                                    <td>
+                                        @empleado.Dni
+                                    </td>
+
+                                    <td>
+                                        @empleado.Nombre
+                                    </td>
+
+                                    <td>
+                                        @empleado.Apellido
+                                    </td>
+
+                                    <td>
+                                        @empleado.IdDepartamentoNavigation.Nombre
+                                    </td>
+
+                                    <td>
+
+                                        @if (empleado.Estado)
+                                        {
+                                            <span class="badge bg-success">
+                                                Activo
+                                            </span>
+                                        }
+                                        else
+                                        {
+                                            <span class="badge bg-danger">
+                                                Inactivo
+                                            </span>
+                                        }
+
+                                    </td>
+
+                                    <td>
+                                        @empleado.CantidadHijos
+                                    </td>
+
+                                    <td>
+                                        @(empleado.FechaIngreso?.ToString("dd/MM/yyyy"))
+                                    </td>
+
+                                </tr>
+                            }
+
+                        </tbody>
+
+                    </table>
+
+                </div>
+            }
+            else
+            {
+                <div class="alert alert-warning mb-0">
+                    No se encontraron empleados con los filtros aplicados.
+                </div>
+            }
+        </div>
+    </div>
+</div>

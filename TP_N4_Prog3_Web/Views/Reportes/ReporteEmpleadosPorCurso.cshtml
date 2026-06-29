@@ -1,0 +1,97 @@
+﻿@using TP_N4_Prog3_Web.ViewModels
+@model EmpleadosPorCursoVM
+
+    <h2 class="text-center mb-3">Empleados por Curso</h2>
+
+    <form method="get" asp-action="ReporteEmpleadosPorCurso">
+
+        <div class="row mb-3">
+
+            <div class="col-md-6">
+
+                <select name="idCurso" class="form-control">
+
+                    <option value="">
+                        -- Seleccionar curso --
+                    </option>
+
+                    @foreach (var curso in ViewBag.Cursos)
+                    {
+                        <option value="@curso.IdCurso">
+                            @curso.NombreCurso
+                        </option>
+                    }
+
+                </select>
+
+            </div>
+
+            <div class="col-md-2">
+
+                <button type="submit"
+                        class="btn btn-primary">
+                    Buscar
+                </button>
+
+            </div>
+
+        </div>
+
+    </form>
+
+@if (Model != null)
+{
+        <h4 class="mb-3">
+            Curso: @Model.NombreCurso
+        </h4>
+
+        <table id="tablaReporteEmpleadosCurso" class="table table-bordered table-striped">
+
+            <thead class="table-dark">
+
+                <tr>
+                    <th>ID</th>
+                    <th>DNI</th>
+                    <th>Nombre</th>
+                    <th>Apellido</th>
+                    <th>Estado</th>
+                </tr>
+
+            </thead>
+
+            <tbody>
+
+                @foreach (var emp in Model.Empleados)
+                {
+                    <tr>
+                        <td>@emp.IdEmpleado</td>
+                        <td>@emp.Dni</td>
+                        <td>@emp.Nombre</td>
+                        <td>@emp.Apellido</td>
+                        <td>
+                            @(emp.Estado ? "Activo" : "Inactivo")
+                        </td>
+                    </tr>
+                }
+
+            </tbody>
+
+        </table>
+}
+else
+{
+    <div class="alert alert-warning mb-0">
+        No se encontraron empleados con los filtros aplicados.
+    </div>
+}
+
+@section Scripts
+{
+    <script>
+        new DataTable('#tablaReporteEmpleadosCurso', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.3.3/i18n/es-ES.json'
+            }
+        });
+    </script>
+}

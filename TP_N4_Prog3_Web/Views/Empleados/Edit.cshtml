@@ -1,0 +1,74 @@
+﻿@model APP_PRUEBA_1.Models.Empleado
+
+<h2 class="text-center mb-3">Editar Empleado</h2>
+
+<div class="container d-flex justify-content-center align-items-center">
+    <form asp-action="Edit" method="post">
+
+        <input type="hidden" asp-for="IdEmpleado" /> @*Esto es lo que lo vincula con el Edit(int id) acción GET*@
+
+        <div>
+            <label>DNI</label>
+            <input asp-for="Dni" class="form-control" />
+        </div>
+
+        <div>
+            <label>Nombre</label>
+            <input asp-for="Nombre" class="form-control" />
+        </div>
+
+        <div>
+            <label>Apellido</label>
+            <input asp-for="Apellido" class="form-control" />
+        </div>
+
+        <div class="form-check form-switch py-2">
+            <input class="form-check-input" type="checkbox" asp-for="Estado" />
+            <label class="form-check-label" asp-for="Estado">
+                Estado
+            </label>
+        </div>
+
+        <div>
+            <label>Fecha de Ingreso</label>
+            <input asp-for="FechaIngreso" type="date" class="form-control" />
+        </div>
+
+        <div>
+            <label>Cantidad de Hijos</label>
+            <input asp-for="CantidadHijos" class="form-control" />
+        </div>
+
+        <div class="pt-3">
+            <select asp-for="IdDepartamento" asp-items="ViewBag.Departamentos" class="form-control" required>
+                <option value="" disabled selected>-- Seleccionar departamento --</option>
+            </select>
+        </div>
+
+        <div class="mt-4">
+            <h5>Cursos asignados</h5>
+            <div class="border rounded p-3">
+                @foreach (var curso in ViewBag.Cursos)
+                {
+                    <div class="form-check">
+                        <input class="form-check-input"
+                               type="checkbox"
+                               name="CursosSeleccionados"
+                               value="@curso.IdCurso"
+                               checked="@Model.IdCursos.Any(c => c.IdCurso == curso.IdCurso)" />
+                        <label class="form-check-label">
+                            @curso.NombreCurso
+                        </label>
+                    </div>
+                }
+            </div>
+        </div>
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <br />
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a asp-action="GetEmpleados" class="btn btn-secondary">Volver</a>
+    </form>
+</div>

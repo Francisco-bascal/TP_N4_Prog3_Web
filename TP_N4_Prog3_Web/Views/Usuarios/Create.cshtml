@@ -1,0 +1,46 @@
+﻿@model APP_PRUEBA_1.Models.Usuario
+
+<h2 class="text-center mb-3">Nuevo Usuario</h2>
+
+<div class="container d-flex justify-content-center align-items-center">
+
+    <form asp-action="Create" method="post">
+
+        <div>
+            <label>Nombre de Usuario</label>
+            <input asp-for="Nombre" class="form-control" />
+        </div>
+
+        <div>
+            <label>Apellido</label>
+            <input asp-for="Apellido" class="form-control" />
+        </div>
+
+        <div>
+            <label>Contraseña</label>
+            <input asp-for="Pass" type="password" class="form-control" />
+        </div>
+
+        <div>
+            <label>Rol</label>
+            <select asp-for="Rol" class="form-control">
+                <option value="Operador">Operador</option>
+                <option value="Administrador">Administrador</option>
+            </select>
+        </div>
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <br />
+
+        <button type="submit" class="btn btn-primary">
+            Guardar
+        </button>
+
+        <a asp-action="GetUsuarios" class="btn btn-secondary">
+            Volver
+        </a>
+
+    </form>
+
+</div>

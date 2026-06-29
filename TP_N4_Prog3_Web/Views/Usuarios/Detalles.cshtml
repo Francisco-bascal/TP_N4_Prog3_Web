@@ -1,0 +1,36 @@
+﻿@model APP_PRUEBA_1.Models.Usuario
+
+<h2 class="text-center mb-3">Detalles</h2>
+
+<div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="card" style="max-width: 600px; min-width: 300px">
+        <div class="card-body">
+
+            <div class="mb-2">
+                <small class="text-muted">Identificador</small>
+                <div class="fw-semibold">@Model.IdUsuario</div>
+            </div>
+
+            <div class="mb-2">
+                <small class="text-muted">Nombre de Usuario</small>
+                <div class="fw-semibold">@Model.Nombre</div>
+            </div>
+
+            <div class="mb-2">
+                <small class="text-muted">Apellido</small>
+                <div class="fw-semibold">@Model.Apellido</div>
+            </div>
+
+            <div class="mb-2">
+                <small class="text-muted">Contraseña</small>
+                <div class="fw-semibold">@Model.Pass</div>
+            </div>
+
+            <div class="mb-2">
+                <small class="text-muted">Rol</small>
+                <div class="fw-semibold">@Model.Rol</div>
+            </div>
+
+        </div>
+    </div>
+</div>

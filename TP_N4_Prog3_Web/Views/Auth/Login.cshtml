@@ -1,0 +1,82 @@
+﻿@using TP_N4_Prog3_Web.DTOs
+@model LoginDTO
+
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+    <title>Login</title>
+
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+    <link rel="stylesheet" href="~/APP_PRUEBA_1.styles.css" asp-append-version="true" />
+</head>
+<body>
+        <h2 class="text-center my-5">Iniciar Sesión</h2>
+
+        <div class="container d-flex justify-content-center">
+            <div class="card shadow" style="min-width:350px; max-width:500px; width:100%;">
+                <div class="card-body p-4">
+
+                    <form asp-action="Login" method="post">
+
+                        <div class="mb-3">
+                            <label asp-for="Nombre" class="form-label">Usuario</label>
+                            <input asp-for="Nombre" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Pass" class="form-label">Contraseña</label>
+                            <input asp-for="Pass" type="password" class="form-control" />
+                        </div>
+
+                        <div asp-validation-summary="All" class="text-danger mb-3"></div>
+
+                        <div class="d-grid">
+                            <button type="submit" class="btn btn-primary">
+                                Ingresar
+                            </button>
+                        </div>
+
+                    </form>
+
+                </div>
+            </div>
+        </div>
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/lib/jquery-validation/dist/jquery.validate.min.js"></script>
+    <script src="~/lib/jquery-validation-unobtrusive/jquery.validate.unobtrusive.min.js"></script>
+    <!-- Sweet Alert --->
+    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+
+    @if (TempData["Exito"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'success',
+                title: 'Éxito',
+                 text: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["Exito"]))
+            });
+        </script>
+    }
+
+    @if (TempData["Errores"] != null)
+    {
+        <script>
+            Swal.fire({
+                icon: 'error',
+                title: 'Error',
+                text: @Html.Raw(System.Text.Json.JsonSerializer.Serialize(TempData["Errores"]))
+            });
+        </script>
+    }
+</body>
+</html>

@@ -1,0 +1,100 @@
+﻿[HttpGet]
+        public async Task<IActionResult> GetEmpleadoByIdAsync(int id) 
+        {
+            if (id <= 0) return RedirectToAction("GetEmpleados");
+
+            var empleado = await _contexto.Empleados.FirstOrDefaultAsync(e => e.IdEmpleado.Equals(id));
+
+            if (empleado == null) return RedirectToAction("GetEmpleados");
+
+            return View(empleado);
+        }
+
+        [HttpGet]
+        public IActionResult Create() //para mostrar el formulario de agregación de empleado
+        {
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> PostEmpleadoAsync(Empleados empleado) 
+        {
+            if (!ModelState.IsValid) return View(empleado);
+
+            await _contexto.Empleados.AddAsync(empleado);
+            
+
+            try
+            {
+                await _contexto.SaveChangesAsync();
+                return RedirectToAction("GetEmpleados");
+            }
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError("", "Error al guardar en la base de datos.");
+                return View(empleado);
+            }
+            catch (Exception ex) 
+            {
+                ModelState.AddModelError("", "Error inesperado.");
+                return View(empleado);
+            }   
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> EditAsync(int id)
+        {
+            var empleado = await _contexto.Empleados.FindAsync(id);
+
+            if (empleado == null)
+                return RedirectToAction("GetEmpleados");
+
+            return View(empleado);
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> EditAsync(Empleados empleado)
+        {
+            if (!ModelState.IsValid)
+                return View(empleado);
+
+            var existente = await _contexto.Empleados.FindAsync(empleado.IdEmpleado);
+
+            if (existente == null)
+                return RedirectToAction("GetEmpleados");
+
+            existente.Nombre = empleado.Nombre;
+            existente.Apellido = empleado.Apellido;
+            existente.FechaIngreso = empleado.FechaIngreso;
+            existente.IdDepartamento = empleado.IdDepartamento;
+
+            try
+            {
+                await _contexto.SaveChangesAsync();
+                return RedirectToAction("GetEmpleados");
+            }
+            catch (DbUpdateException ex)
+            {
+                ModelState.AddModelError("", "Error al guardar en la base de datos.");
+                return View(empleado);
+            }
+            catch (Exception ex)
+            {
+                ModelState.AddModelError("", "Error inesperado.");
+                return View(empleado);
+            }
+        }
+
+        //[HttpDelete] no se Puede en MVC
+        [HttpPost]
+        public async Task<IActionResult> DeleteEmpleadoAsync(int id) 
+        {
+            var existe = await _contexto.Empleados.FindAsync(id);
+
+            if (existe == null) return RedirectToAction("GetEmpleados");
+
+            _contexto.Empleados.Remove(existe);
+            await _contexto.SaveChangesAsync();
+
+            return RedirectToAction("GetEmpleados");
+        }

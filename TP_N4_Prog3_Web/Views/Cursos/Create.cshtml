@@ -1,0 +1,48 @@
+﻿@model APP_PRUEBA_1.Models.Curso
+
+<h2 class="text-center mb-3">Nuevo Curso</h2>
+
+<div class="container d-flex justify-content-center align-items-center">
+
+    <form asp-action="Create" method="post">
+
+        <div class="mb-3">
+            <label>Nombre del Curso</label>
+
+            <input asp-for="NombreCurso"
+                   class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Horas</label>
+
+            <input asp-for="Horas"
+                   class="form-control" />
+        </div>
+
+        <div class="mb-3">
+            <label>Fecha de Inicio</label>
+
+            <input asp-for="FechaInicio"
+                   type="date"
+                   class="form-control" />
+        </div>
+
+        <div asp-validation-summary="All"
+             class="text-danger">
+        </div>
+
+        <button class="btn btn-primary"
+                type="submit">
+
+            Guardar
+        </button>
+
+        <a asp-action="GetCursos"
+           class="btn btn-secondary">
+
+            Volver
+        </a>
+
+    </form>
+</div>

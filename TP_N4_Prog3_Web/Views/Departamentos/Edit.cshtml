@@ -1,0 +1,25 @@
+﻿@model APP_PRUEBA_1.Models.Departamento
+
+<h2 class="text-center mb-3">Editar Departamento</h2>
+
+<div class="container d-flex justify-content-center align-items-center">
+    <form asp-action="Edit" method="post">
+
+        <input type="hidden" asp-for="IdDepartamento" /> @*Esto es lo que lo vincula con el Edit(int id) acción GET*@
+
+        <div>
+            <label>Nombre</label>
+            <input asp-for="Nombre" class="form-control" />
+        </div>
+
+        <div>
+            <label>Nombre</label>
+            <input asp-for="Ubicacion" class="form-control" />
+        </div>
+
+        <div asp-validation-summary="All" class="text-danger"></div>
+
+        <button type="submit" class="btn btn-primary">Guardar</button>
+        <a asp-action="GetDepartamentos" class="btn btn-secondary">Volver</a>
+    </form>
+</div>

@@ -1,0 +1,62 @@
+﻿@model APP_PRUEBA_1.Models.Empleado
+
+<h2 class="text-center mb-3">Detalles</h2>
+
+<div class="d-flex flex-column justify-content-center align-items-center">
+    <div class="card" style="max-width: 600px; min-width: 300px">
+        <div class="card-body">
+            <div class="mb-2">
+                <small class="text-muted">Identificador</small>
+                <div class="fw-semibold">@Model.IdEmpleado</div>
+            </div>
+            <div class="mb-2">
+                <small class="text-muted">DNI</small>
+                <div class="fw-semibold">@Model.Dni</div>
+            </div>
+            <div>
+                <small class="text-muted">Nombre</small>
+                <div class="fs-5 fw-bold">@Model.Nombre</div>
+            </div>
+            <div>
+                <small class="text-muted">Apellido</small>
+                <div class="fs-5 fw-bold">@Model.Apellido</div>
+            </div>
+            <div class="mb-2">
+                <small class="text-muted">Estado</small>
+                <div class="fw-semibold">@(Model.Estado ? "Activo" : "Inactivo")</div>
+            </div>
+            <div>
+                <small class="text-muted">Fecha de Ingreso</small>
+                <div class="fs-5 fw-bold">@Model.FechaIngreso</div>
+            </div>
+            <div class="mb-2">
+                <small class="text-muted">Cantidad de Hijos</small>
+                <div class="fw-semibold">@Model.CantidadHijos</div>
+            </div>
+            <div>
+                <small class="text-muted">Departamento</small>
+                <div class="fs-5 fw-bold">@Model.IdDepartamentoNavigation.Nombre</div>
+            </div>
+            <div class="mt-3">
+                <small class="text-muted">Cursos asignados</small>
+                <div class="border rounded p-3 mt-1">
+                    @if (Model.IdCursos.Any())
+                    {
+                        @foreach (var curso in Model.IdCursos)
+                        {
+                            <div>
+                                  @curso.NombreCurso
+                            </div>
+                        }
+                    }
+                    else
+                    {
+                        <div class="text-muted">
+                            Sin cursos asignados
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

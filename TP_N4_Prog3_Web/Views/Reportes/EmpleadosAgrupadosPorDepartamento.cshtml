@@ -1,0 +1,39 @@
+﻿@using TP_N4_Prog3_Web.ViewModels
+@model List<EmpleadosAgrupadosPorDepartamentoVM>
+
+@foreach (var grupo in Model)
+{
+    <h3 class="text-center">@grupo.NombreDepartamento</h3>
+
+    <table class="table table-bordered table-striped table-hover"> <!-- Agregar id para usar data table (solo funciona en la primera) -->
+        <thead class="table-dark text-light">
+            <tr>
+                <th>Nombre</th>
+                <th>Apellido</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var empleado in grupo.Empleados)
+            {
+                <tr>
+                    <td>@empleado.Nombre</td>
+                    <td>@empleado.Apellido</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+
+<!--
+    Al tener varias tablas, solo la primera se muestra como data table. Ya que es por id.
+@section Scripts
+{
+        <script>
+            new DataTable('#tablaReporteEmpleadosAgrupadosDepartamento', {
+                language: {
+                    url: '//cdn.datatables.net/plug-ins/2.3.3/i18n/es-ES.json'
+                }
+            });
+        </script>
+}
+-->

@@ -1,0 +1,179 @@
+﻿@model IEnumerable<APP_PRUEBA_1.Models.Empleado>
+
+<h1 class="text-center mb-3">Empleados</h1>
+
+<!-- Sin data table sería between -->
+<div class="d-flex justify-content-end align-items-center mb-3"> 
+    <!-- Inutilizado por Data Tables 
+        <form method="get" asp-action="GetEmpleadosFiltro" class="d-flex gap-2">
+        <input type="text" name="busqueda" class="form-control"
+               placeholder="Buscar por nombre o apellido" value="@ViewBag.Busqueda" />
+
+        <select name="departamentoId" class="form-select">
+            <option value="">Todos los departamentos</option>
+            @foreach (var depto in ViewBag.Departamentos)
+            {
+                    if (ViewBag.DepartamentoSeleccionado == depto.IdDepartamento)
+                    {
+                            <option value="@depto.IdDepartamento" selected>
+                                @depto.Nombre
+                            </option>
+                    }
+                    else
+                    {
+                            <option value="@depto.IdDepartamento">
+                                @depto.Nombre
+                            </option>
+                    }
+            }
+        </select>
+
+        <button type="submit" class="btn btn-primary">Buscar</button>
+    </form>
+    -->
+
+    @if (User.IsInRole("Administrador") || User.IsInRole("Operador"))
+    {
+        <a asp-action="Create" class="btn btn-primary">Nuevo Empleado</a>
+    }
+
+</div>
+
+<table id="tablaEmpleados" class="table table-bordered table-striped table-hover">
+    <thead class="table-dark text-light">
+        <tr>
+            <th>ID</th>
+            <th>DNI</th>
+            <th>Nombre</th>
+            <th>Apellido</th>
+            <th>Estado</th>
+            <th>Fecha Ingreso</th>
+            <th>Cantidad de Hijos</th>
+            <th>Departamento</th>
+            <th>Acciones</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var emp in Model)
+        {
+            <tr>
+                <td>@emp.IdEmpleado</td>
+                <td>@emp.Dni</td>
+                <td>@emp.Nombre</td>
+                <td>@emp.Apellido</td>
+                <!-- <td>@(emp.Estado ? "Activo" : "Inactivo")</td> -->
+                <td>
+                    @if (emp.Estado.Equals(true))
+                    {
+                        <span class="badge bg-success">
+                            Activo
+                        </span>
+                    }else
+                    {
+                        <span class="badge bg-danger">
+                            Inactivo
+                        </span>
+                    }
+                </td>
+                <td>@(emp.FechaIngreso.HasValue ? emp.FechaIngreso.Value.ToShortDateString() : "")</td>
+                <td>@emp.CantidadHijos</td>
+                <td>@emp.IdDepartamentoNavigation?.Nombre</td>
+                <td>
+                    @if (User.IsInRole("Administrador") || User.IsInRole("Operador"))
+                    {
+                        <a asp-action="Edit" asp-route-id="@emp.IdEmpleado" class="btn btn-warning btn-sm">
+                            Editar
+                        </a>
+                    }
+                    
+                    @if (User.IsInRole("Administrador"))
+                    {
+                        <button type="button"
+                                class="btn btn-danger btn-sm"
+                                data-bs-toggle="modal"
+                                data-bs-target="#modalEliminar"
+                                data-id="@emp.IdEmpleado"
+                                data-nombre="@emp.Nombre">
+                            Eliminar
+                        </button>
+                    }
+
+                    <a asp-action="GetEmpleadoById" asp-route-id="@emp.IdEmpleado" class="btn btn-primary btn-sm">
+                        Detalles
+                    </a>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
+
+<!-- Modal a nivel de vista -->
+<div class="modal fade" id="modalEliminar" tabindex="-1" aria-labelledby="modalEliminarLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title"
+                    id="modalEliminarLabel">
+                    Confirmar eliminación
+                </h5>
+
+                <button type="button"
+                        class="btn-close"
+                        data-bs-dismiss="modal">
+                </button>
+            </div>
+            <div class="modal-body">
+
+                <p id="textoModal">
+                    ¿Desea eliminar este registro?
+                </p>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button"
+                        class="btn btn-secondary"
+                        data-bs-dismiss="modal">
+                    Cancelar
+                </button>
+                <form asp-action="DeleteEmpleado"
+                      method="post">
+
+                    <input type="hidden"
+                           id="idEliminar"
+                           name="id" />
+
+                    <button type="submit"
+                            class="btn btn-danger">
+                        Eliminar
+                    </button>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+
+@section Scripts
+{
+    <script>
+        new DataTable('#tablaEmpleados', {
+            language: {
+                url: '//cdn.datatables.net/plug-ins/2.3.3/i18n/es-ES.json'
+            }
+        });
+    </script>
+
+    <script>
+        const modalEliminar = document.getElementById('modalEliminar');
+
+        modalEliminar.addEventListener('show.bs.modal',
+            function (event)
+            {
+                const boton = event.relatedTarget;
+                const id = boton.getAttribute('data-id');
+                const nombre = boton.getAttribute('data-nombre');
+
+                document.getElementById('idEliminar').value = id;
+                document.getElementById('textoModal').innerText = `¿Desea eliminar a ${nombre}?`;
+            });
+    </script>
+}

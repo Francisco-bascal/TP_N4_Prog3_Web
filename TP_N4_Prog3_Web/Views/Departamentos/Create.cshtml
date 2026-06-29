@@ -1,0 +1,24 @@
+﻿@model APP_PRUEBA_1.Models.Departamento
+
+<h2 class="text-center mb-3">Nuevo Departamento</h2>
+
+<div class="container d-flex justify-content-center align-items-center">
+
+    <form asp-action="PostDepartamento" method="post">
+
+        <div>
+            <label>Nombre</label>
+            <input asp-for="Nombre" class="form-control" />
+        </div>
+
+        <div>
+            <label>Ubicación</label>
+            <input asp-for="Ubicacion" class="form-control" />
+        </div>
+
+        <div asp-validation-summary="All" class="text-danger"/>
+
+        <button class="btn btn-primary" type="submit">Guardar</button>
+        <a asp-action="GetDepartamentos" class="btn btn-secondary">Volver</a>
+    </form>
+</div>
