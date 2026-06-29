@@ -2,6 +2,7 @@
 using TP_N4_Prog3_Web.DTOs;
 namespace TP_N4_Prog3_Web.ViewModels
 {
+    //ViewModel para el reporte especializado
     public class ReporteConFiltrosEmpleadoVM
     {
         public FiltroEmpleadoDTO Filtros { get; set; } = default!;
