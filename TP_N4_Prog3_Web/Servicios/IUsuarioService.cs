@@ -1,4 +1,5 @@
-﻿using TP_N4_Prog3_Web.Models;
+﻿using TP_N4_Prog3_Web.DTOs;
+using TP_N4_Prog3_Web.Models;
 using TP_N4_Prog3_Web.Servicios.Validation;
 
 namespace TP_N4_Prog3_Web.Servicios
@@ -10,6 +11,7 @@ namespace TP_N4_Prog3_Web.Servicios
         Task<Result<Usuario>> GetUsuarioByCredencialesAsync(string nombreUsuario, string contraseña);
         Task<Result<ICollection<Usuario>>> GetUsuarioByNameOrLastNameAsync(string? busqueda);
         Task<Result<Usuario>> PostUsuarioAsync(Usuario usuario);
+        Task<Result<Usuario>> RegistrarUsuarioAsync(RegistroDTO registro);
         Task<Result<Usuario>> PutUsuarioAsync(Usuario usuario, int idUsuarioActual);
         Task<Result<Usuario>> DeleteUsuarioByIdAsync(int id, int idUsuarioActual);
     }

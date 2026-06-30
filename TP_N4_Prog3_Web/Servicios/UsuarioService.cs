@@ -1,4 +1,5 @@
-﻿using TP_N4_Prog3_Web.Models;
+﻿using TP_N4_Prog3_Web.DTOs;
+using TP_N4_Prog3_Web.Models;
 using TP_N4_Prog3_Web.Repositorios;
 using TP_N4_Prog3_Web.Servicios.Validation;
 
@@ -48,6 +49,24 @@ namespace TP_N4_Prog3_Web.Servicios
             await _repositorio.PostUsuarioAsync(usuario);
             return Result<Usuario>.Success(usuario);
         }
+
+        public async Task<Result<Usuario>> RegistrarUsuarioAsync(RegistroDTO registro) 
+        {
+            var existe = await _repositorio.GetUsuarioByNameAsync(registro.Nombre);
+
+            if (existe != null) return Result<Usuario>.Failure("Ya existe un usuario registrado con este nombre de usuario");
+
+            var usuarioRegistrar = new Usuario 
+            {
+                Nombre = registro.Nombre,
+                Apellido = "Default",
+                Pass = registro.Pass,
+                Rol = "Operador" //los usuarios que se crean por registro siempre son operadores
+            };
+
+            await _repositorio.PostUsuarioAsync(usuarioRegistrar);
+            return Result<Usuario>.Success(usuarioRegistrar);
+        }
         public async Task<Result<Usuario>> PutUsuarioAsync(Usuario usuario, int idUsuarioActual) 
         {
             var existe = await _repositorio.GetUsuarioByIdAsync(usuario.IdUsuario); //para verificar existencia
@@ -83,7 +102,6 @@ namespace TP_N4_Prog3_Web.Servicios
 
             if (existe.IdUsuario.Equals(1)) return Result<Usuario>.Failure("Usuario Protegido: No se puede eliminar al administrador general del sistema");
 
-            //Falta la regla de no autoeliminación
             await _repositorio.DeleteUsuarioByIdAsync(id);
             return Result<Usuario>.Success(existe);
         }

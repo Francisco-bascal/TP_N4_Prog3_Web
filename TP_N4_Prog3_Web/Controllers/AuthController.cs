@@ -18,6 +18,10 @@ namespace TP_N4_Prog3_Web.Controllers
         [HttpGet]
         public IActionResult Login()
         {
+            //Seguridad para evitar que un usuario autenticado vuelva al login
+            if (User.Identity?.IsAuthenticated == true)
+                return RedirectToAction("Index", "Home");
+
             return View();
         }
 
@@ -55,6 +59,43 @@ namespace TP_N4_Prog3_Web.Controllers
             {
                 TempData["Errores"] = ex.Message;
                 return View(login);
+            }
+        }
+
+        [HttpGet]
+        public IActionResult Registro()
+        {
+            //Seguridad que previene que un usuario acceda a registro si ya está autenticado
+            if (User.Identity?.IsAuthenticated == true)
+                return RedirectToAction("Index", "Home");
+
+            return View();
+        }
+
+        [HttpPost]
+        public async Task<IActionResult> Registro(RegistroDTO registro)
+        {
+            try
+            {
+                //para que apliquen previsoriamente las validaciones de data annotation. Principalmente el compare
+                if (!ModelState.IsValid)
+                    return View(registro);
+
+                var resultado = await _servicio.RegistrarUsuarioAsync(registro);
+
+                if (!resultado.IsValid)
+                {
+                    TempData["Errores"] = string.Join("|", resultado.Errors);
+                    return View(registro);
+                }
+
+                TempData["Exito"] = "Usuario registrado correctamente.";
+                return RedirectToAction(nameof(Login));
+            }
+            catch (Exception ex)
+            {
+                TempData["Errores"] = ex.Message;
+                return View(registro);
             }
         }
 
