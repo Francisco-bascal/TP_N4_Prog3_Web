@@ -64,7 +64,8 @@ namespace TP_N4_Prog3_Web.Servicios
             var existe = await _repositorio.GetDepartamentoByIdAsync(id);
             if (existe == null) return Result<Departamento>.Failure($"No existe el departamento con el id: {id}");
 
-            if (existe.Empleados.Count() > 0) return Result<Departamento>.Failure("No se puede eliminar un departamento con empleados asociados");
+            if (!existe.PuedeEliminarse) return Result<Departamento>.Failure("No se puede eliminar un departamento con empleados asociados");
+            //if (existe.Empleados.Count() > 0) return Result<Departamento>.Failure("No se puede eliminar un departamento con empleados asociados");
 
             await _repositorio.DeleteDepartamentoByIdAsync(id);
             return Result<Departamento>.Success(existe);

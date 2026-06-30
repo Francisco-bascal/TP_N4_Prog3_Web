@@ -63,9 +63,9 @@ namespace TP_N4_Prog3_Web.Servicios
             var existe = await _repositorio.GetEmpleadoByIdAsync(id);
             if (existe == null) return Result<Empleado>.Failure($"No existe el empleado con el id {id}");
 
-            if (existe.Estado.Equals(true)) return Result<Empleado>.Failure("No se puede eliminar un empleado con estado activo");
-
-            if (existe.FechaIngreso < (DateOnly.FromDateTime(DateTime.Now).AddYears(-5))) return Result<Empleado>.Failure("No se puede eliminar un empleado con más de 5 años de antigüedad");
+            if (!existe.EsElegibleParaBaja) return Result<Empleado>.Failure("El empleado no es elegible para darlo de baja");
+            //if (existe.Estado.Equals(true)) return Result<Empleado>.Failure("No se puede eliminar un empleado con estado activo");
+            //if (existe.FechaIngreso < (DateOnly.FromDateTime(DateTime.Now).AddYears(-5))) return Result<Empleado>.Failure("No se puede eliminar un empleado con más de 5 años de antigüedad");
 
             await _repositorio.DeleteEmpleadoByIdAsync(id);
             return Result<Empleado>.Success(existe);
