@@ -1,8 +1,106 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "Inicio";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://learn.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container mt-5">
+
+    <div class="row justify-content-center">
+
+        <div class="col-lg-8">
+
+            <div class="card shadow">
+
+                <div class="card-header bg-primary text-white">
+                    <h3 class="mb-0">Sistema de Gestión de Recursos Humanos</h3>
+                </div>
+
+                <div class="card-body">
+
+                    <p class="lead">
+                        Bienvenido al sistema de gestión de Recursos Humanos.
+                    </p>
+
+                    <p>
+                        Desde esta aplicación es posible administrar empleados,
+                        departamentos, cursos y usuarios, de acuerdo con los permisos
+                        asignados a cada perfil.
+                    </p>
+
+                    <hr />
+
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        <h5 class="mb-3">
+                            Accesos rápidos
+                        </h5>
+
+                        <div class="d-flex flex-wrap gap-2">
+
+                            <a asp-controller="Empleado"
+                               asp-action="GetEmpleados"
+                               class="btn btn-primary">
+                                Empleados
+                            </a>
+
+                            <a asp-controller="Departamento"
+                               asp-action="GetDepartamentos"
+                               class="btn btn-primary">
+                                Departamentos
+                            </a>
+
+                            <a asp-controller="Curso"
+                               asp-action="GetCursos"
+                               class="btn btn-primary">
+                                Cursos
+                            </a>
+
+                            @if (User.IsInRole("Administrador"))
+                            {
+                                <a asp-controller="Usuario"
+                                   asp-action="GetUsuarios"
+                                   class="btn btn-danger">
+                                    Usuarios
+                                </a>
+
+                                <a asp-controller="Reporte"
+                                   asp-action="Reportes"
+                                   class="btn btn-danger">
+                                    Usuarios
+                                </a>
+                            }
+
+                        </div>
+                    }
+                    else
+                    {
+                        <h5 class="mb-3">
+                            Comenzar
+                        </h5>
+
+                        <div class="d-flex flex-wrap gap-2">
+
+                            <a asp-controller="Empleado"
+                               asp-action="Index"
+                               class="btn btn-primary">
+                                Ver Empleados
+                            </a>
+
+                            <a asp-controller="Auth"
+                               asp-action="Login"
+                               class="btn btn-success">
+                                Iniciar Sesión
+                            </a>
+
+                            <a asp-controller="Auth"
+                               asp-action="Registro"
+                               class="btn btn-outline-primary">
+                                Registrarse
+                            </a>
+
+                        </div>
+                    }
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
