@@ -30,25 +30,25 @@
 
                     @if (User.Identity?.IsAuthenticated == true)
                     {
-                        <h5 class="mb-3">
+                        <h5 class="mb-3 text-center">
                             Accesos rápidos
                         </h5>
 
-                        <div class="d-flex flex-wrap gap-2">
+                        <div class="d-flex flex-row justify-content-center align-items-center gap-2">
 
-                            <a asp-controller="Empleado"
+                            <a asp-controller="Empleados"
                                asp-action="GetEmpleados"
                                class="btn btn-primary">
                                 Empleados
                             </a>
 
-                            <a asp-controller="Departamento"
+                            <a asp-controller="Departamentos"
                                asp-action="GetDepartamentos"
                                class="btn btn-primary">
                                 Departamentos
                             </a>
 
-                            <a asp-controller="Curso"
+                            <a asp-controller="Cursos"
                                asp-action="GetCursos"
                                class="btn btn-primary">
                                 Cursos
@@ -56,16 +56,16 @@
 
                             @if (User.IsInRole("Administrador"))
                             {
-                                <a asp-controller="Usuario"
+                                <a asp-controller="Usuarios"
                                    asp-action="GetUsuarios"
                                    class="btn btn-danger">
                                     Usuarios
                                 </a>
 
-                                <a asp-controller="Reporte"
+                                <a asp-controller="Reportes"
                                    asp-action="Reportes"
                                    class="btn btn-danger">
-                                    Usuarios
+                                    Reportes
                                 </a>
                             }
 
@@ -77,10 +77,10 @@
                             Comenzar
                         </h5>
 
-                        <div class="d-flex flex-wrap gap-2">
+                        <div class="d-flex flex-row justify-content-center align-items-center gap-2">
 
-                            <a asp-controller="Empleado"
-                               asp-action="Index"
+                            <a asp-controller="Empleados"
+                               asp-action="GetEmpleados"
                                class="btn btn-primary">
                                 Ver Empleados
                             </a>
