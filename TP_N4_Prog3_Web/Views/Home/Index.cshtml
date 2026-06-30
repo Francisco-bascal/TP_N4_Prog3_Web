@@ -26,6 +26,20 @@
                         asignados a cada perfil.
                     </p>
 
+                    @if (User.Identity?.IsAuthenticated == true)
+                    {
+                        @if (User.IsInRole("Operador"))
+                        {
+                            <p class="text-center">Bienvenido: Operador</p>
+                        }
+
+                        @if (User.IsInRole("Administrador"))
+                        {
+                            <p class="text-center">Bienvenido: Administrador</p>    
+                        }
+
+                    }
+
                     <hr />
 
                     @if (User.Identity?.IsAuthenticated == true)
