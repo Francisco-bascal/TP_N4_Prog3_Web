@@ -20,14 +20,14 @@ namespace TP_N4_Prog3_Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrador,Operador")]
+        [Authorize(Roles = "Administrador")]
         public IActionResult Reportes() 
         {
             return View();
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrador,Operador")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> EmpleadosPorDepartamento() 
         {
             Result<IEnumerable<EmpleadosPorDepartamentoVM>> resultado;
@@ -51,7 +51,7 @@ namespace TP_N4_Prog3_Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrador,Operador")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> EmpleadosAgrupadosPorDepartamento() 
         {
             Result<IEnumerable<EmpleadosAgrupadosPorDepartamentoVM>> resultado;
@@ -108,7 +108,7 @@ namespace TP_N4_Prog3_Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "Administrador,Operador")]
+        [Authorize(Roles = "Administrador")]
         public async Task<IActionResult> ReporteEmpleadosPorCurso(int? idCurso) 
         {
             Result<EmpleadosPorCursoVM> resultado;
